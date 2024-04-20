@@ -1,4 +1,4 @@
-package com.api.todo.infra.exceptions;
+package br.com.neurotech.challenge.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
