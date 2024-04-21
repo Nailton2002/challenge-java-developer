@@ -1,5 +1,6 @@
 package br.com.neurotech.challenge.resource;
 
+import br.com.neurotech.challenge.doc.NeurotechClientDoc;
 import br.com.neurotech.challenge.entity.NeurotechClient;
 import br.com.neurotech.challenge.entity.VehicleModel;
 import br.com.neurotech.challenge.service.ClientService;
@@ -16,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class ClientResource {
+public class ClientResource implements NeurotechClientDoc {
 
     private final ClientService clientService;
 
