@@ -1,7 +1,9 @@
 package br.com.neurotech.challenge.resource;
 
 import br.com.neurotech.challenge.entity.NeurotechClient;
+import br.com.neurotech.challenge.entity.VehicleModel;
 import br.com.neurotech.challenge.service.ClientService;
+import br.com.neurotech.challenge.service.CreditService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +20,8 @@ public class ClientResource {
 
     private final ClientService clientService;
 
+    private final CreditService creditService;
+
     @PostMapping("/client")
     public ResponseEntity salve(@RequestBody NeurotechClient obj, UriComponentsBuilder uriComponentsBuilder){
         clientService.save(obj);
@@ -33,5 +37,15 @@ public class ClientResource {
     public ResponseEntity<NeurotechClient> buscarPorId(@PathVariable String id){
         NeurotechClient obj = clientService.get(id.toString());
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping("/client/check")
+    public ResponseEntity<String> checkCredit(@RequestParam String clientId, @RequestParam VehicleModel vehicleModel) {
+        boolean isCreditApproved = creditService.checkCredit(clientId, vehicleModel);
+        if (isCreditApproved) {
+            return ResponseEntity.ok("Crédito aprovado para o cliente " + clientId + " para o modelo " + vehicleModel);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Crédito não aprovado para o cliente " + clientId + " para o modelo " + vehicleModel);
+        }
     }
 }

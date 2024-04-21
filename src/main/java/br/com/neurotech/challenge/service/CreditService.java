@@ -12,5 +12,5 @@ public interface CreditService {
 	 * para um determinado modelo de veículo
 	 */
 	boolean checkCredit(String clientId, VehicleModel model);
-	
+
 }
